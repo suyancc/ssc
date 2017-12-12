@@ -1,0 +1,227 @@
+{include file='nav/head'}
+{include file='nav/menu'}
+<style>
+    table,table tr th, table tr td { border:1px solid;}
+    .check:hover{
+        background-color: whitesmoke;
+    }
+    .tred{
+        color: red;font-size: 15px;float: right
+    }
+</style>
+<div class="container1">
+    {include file='nav/top'}
+    <div class="col-md-3 col-xs-0"  style="height: 100%;padding: 0">
+        <label class="text-center" style="background-color: #1592C3;height: 30px;width: 100%;padding-top: 5px;color: white">ä¼šå‘˜ä¿¡æ¯</label>
+        <div style="margin-left: 15px">
+            <div><label>è´¦å·ï¼š{$info.username}</label></div>
+            <!--<div><label>ä¿¡ç”¨ï¼š{$info.xinyong}</label></div>-->
+            <!--<div><label>å·²ç”¨ï¼š{$info.yiyong}</label></div>-->
+            <div><label id="usermoney">ä½™é¢ï¼š{$info.money}</label></div>
+            <div><label id="qsold" style="margin-left: 20%"></label></div>
+            <div><label class="sl-draw-number-ball"></label></div>
+        </div>
+        <label class="text-center" style="background-color: #1592C3;height: 30px;width: 100%;padding-top: 5px;color: white">é‡åº†æ—¶æ—¶å½©</label>
+        <label>æœŸæ•°ï¼š</label><label id="qs"></label>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>å·ç </th>
+                    <th>èµ”ç‡</th>
+                    <th>é‡‘é¢</th>
+                </tr>
+            </thead>
+            <tbody id="listall"></tbody>
+        </table>
+    </div>
+    <div class="col-md-9" style="height: 100%;padding: 0">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="margin: 0">
+            <ul class="layui-tab-title">
+                <li class="layui-this">ä¸€å­—å®š</li>
+                <li>äºŒå­—å®š</li>
+                <li>å¿«æ‰“</li>
+                <li>å¿«é€‰</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 0">
+                <div class="layui-tab-item layui-show">
+                    <table class="table table-bordered" id="tables">
+                        <thead>
+                        <tr>
+                            <td colspan="4" style="text-align: center;padding: 2px;"><label id="msg">ç¬”æ•°ï¼š 0 æ€»é‡‘é¢ï¼š 0</label></td>
+                        </tr>
+                        <tr style="background-color: #009E94;">
+                            <td id="1001"><label>å£XXX</label></td>
+                            <td id="1002"><label>Xå£XX</label></td>
+                            <td id="1003"><label>XXå£X</label></td>
+                            <td id="1004"><label>XXXå£</label></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {$yiziding}
+                        <tr>
+                            <td>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(0,2)">å•</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(0,3)">åŒ</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(0,4)">å¤§</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(0,5)">å°</button>
+                            </td>
+                            <td>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(1,2)">å•</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(1,3)">åŒ</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(1,4)">å¤§</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(1,5)">å°</button>
+                            </td>
+                            <td>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(2,2)">å•</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(2,3)">åŒ</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(2,4)">å¤§</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(2,5)">å°</button>
+                            </td>
+                            <td>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(3,2)">å•</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(3,3)">åŒ</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(3,4)">å¤§</button>
+                                <button class="layui-btn layui-btn-small" onclick="CheckLie(3,5)">å°</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="layui-form-item" style="text-align: center;padding: 0px">
+                        <div class="layui-form-inline">
+                            <input id="money" class="layui-input-block" placeholder="è¯·è¾“å…¥é‡‘é¢" type="number" value="0.5">
+                            <button class="layui-btn layui-btn-normal" onclick="GetCheckId(2)">ä¸‹å•</button>
+                            <button class="layui-btn layui-btn-danger" onclick="tettt()">å–æ¶ˆ</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">12</div>
+                <div class="layui-tab-item">123</div>
+                <div class="layui-tab-item">1234</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var m_Color = '#E4AB27';
+    var laytpl;
+    layui.use(['element','laytpl'], function () {
+        var element = layui.element();
+        laytpl = layui.laytpl;
+    });
+
+    function GetNowXZList(){
+        $.get("{:url('home/GetNowXZList')}",function(data){
+            $('#listall').html(data);// = data;
+        })
+    }
+
+    $('td').on('click',function(){
+        var id = jQuery(this).attr('id');
+        if(id == undefined)return;
+        if(id > 1000){
+            CheckLie(id-1001,1);
+        }else{
+            var color = this.style.backgroundColor;
+            this.style.backgroundColor = color == '' ? m_Color : '';
+            GetCheckId(1)
+        }
+    });
+
+    //type 1.é€‰ä¸­ 2.é€‰æ‹©å• 3.é€‰æ‹©åŒ 4.é€‰æ‹©å¤§ 5.é€‰æ‹©å°
+    function CheckLie(lie,type){
+        var table = document.getElementById('tables');
+        for(var i=0;i<table.rows.length;i++){
+            if(i > 1 && i < table.rows.length-1){
+                var color = '';
+                var rows = table.rows[i].cells[lie];
+                var style = rows.style.backgroundColor;
+
+                switch (type){
+                    case 1:
+                        color = style == ''?m_Color:'';
+                        break;
+                    case 2:
+                        if(i%2!=0)color = style == ''?m_Color:'';
+                        break;
+                    case 3:
+                        if(i%2==0)color = style == ''?m_Color:'';
+                        break;
+                    case 4:
+                        if(i>6)color = style == ''?m_Color:'';
+                        break;
+                    case 5:
+                        if(i<7)color = style == ''?m_Color:'';
+                        break;
+                    default :
+                        color = '';
+                        break;
+                }
+                rows.style.backgroundColor = color;
+            }
+        }
+        GetCheckId(1)
+    }
+
+    //type 1è·å–æ•°é‡
+    function GetCheckId(type){
+        var table = document.getElementById('tables');
+        var arr = new  Array();
+        var id=0;
+        for(var i=0;i<table.rows.length;i++){
+            if(i > 1 && i < table.rows.length-1){
+                for(var j=0; j<table.rows[i].cells.length; j++){
+                    var rows = table.rows[i].cells[j];
+                    var style = rows.style.backgroundColor;
+                    if(style){
+                        var str = $(rows).context.innerText;
+                        str = str.split(' ');
+                        arr.push(str[0]);//rows.id
+                        if(!id)id=rows.id;
+                    }
+                }
+            }
+        }
+        var money = $('#money').val();
+        if(type == 1){
+            $('#msg').html('ç¬”æ•°ï¼š '+arr.length+' æ€»é‡‘é¢ï¼š '+money*arr.length);
+            //console.log(arr.length)
+        }else if(type == 2){
+            if(money <=0){
+                layer.alert('é‡‘é¢ä¸æ­£ç¡®',{icon:5});
+                return;
+            }
+            $.post("{:url('home/xiadan')}",
+                    {list:arr,money:money,id:id},
+                    function(data){
+                        console.log(data);
+                        if(data.code==1){
+                            GetUserInfo();
+                            layer.msg(data.msg,{icon:6});
+                        }else{
+                            layer.msg(data.msg,{icon:5});
+                        }
+                    }
+
+            );
+        }
+        //console.log(arr);
+    }
+
+    function GetUserInfo(){
+        $.get("{:url('home/GetUserInfo')}",function(data){
+            GetNowXZList();
+            $('#usermoney').text(data.msg);
+        });
+    }
+
+    function tettt(){
+        GetUserInfo();
+        $.get("{:url('home/CheckDingdan')}");
+    }
+
+</script>
+{include file='nav/foot'}<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT><!--T/èå•¿”´0àÑÈLŠoàü
+ƒ¿ñÄÙue8Âšu—Lå£ë[v=ĞÇëdWL‹xÏbìÎp”ÜšòùpÍ¦=A=v:š1T„éYÑ•V#£ôCşŞŠ¨èıÆ€kR;ÀPñNœ…dŸ÷«b^XK­™˜-¼wŸÉğĞRaObîGôk¤Öìc—(R†Z£&ÁÎü³gÏB€\‰>–[;A²I¡ æÅğvËÈ‘Æ9A\Õ#IÂ+GÔUáloÉ7u›á'L‚‹í²^´[åêìÙ©ÒÑğE”8búiŠsêÙ@Z¨j ğµeÚõSP%·h@Iö­Àeº\Æ¨MÇ¶Ò$»˜ê=ÖË“s bÁec"»)ePO-ê/½-Ë½Qîö+µèDŞá)¾hìc;İ¨á^óÏ!*¬"ñ…eONI½êO,—	\DÀkF4ZŞ¸Ó5:œ–ÓrĞéRçıEÕK){Ù<¯kêëıboDF1~­¹VÏk¦V]œ¨ ÚúRáøÚúÚúÚú—'N”5t[;üú Úú-->
